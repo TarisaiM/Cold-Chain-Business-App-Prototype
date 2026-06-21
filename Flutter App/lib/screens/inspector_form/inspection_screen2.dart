@@ -1,9 +1,13 @@
-
 // lib/screens/fish_details_screen.dart
+
 import 'package:flutter/material.dart';
 import 'package:aqua_track/screens/inspector_form/certificate_screen.dart';
 
+/// Second step of the inspection form.
+/// Captures fish details and inspector attestation,
+/// then combines with previous form data to generate certificate.
 class InspectionScreen2 extends StatefulWidget {
+  /// Data collected from the previous inspection screen
   final Map<String, String> previousFormData;
 
   const InspectionScreen2({
@@ -16,11 +20,17 @@ class InspectionScreen2 extends StatefulWidget {
 }
 
 class _FishDetailsScreenState extends State<InspectionScreen2> {
+
+  // Form key for validation
   final _formKey = GlobalKey<FormState>();
+
+  // Fish details controllers
   final _speciesController = TextEditingController();
   final _weightController = TextEditingController();
   final _quantityController = TextEditingController();
   final _temperatureController = TextEditingController();
+
+  // Inspector attestation controllers
   final _inspectorController = TextEditingController();
   final _designationController = TextEditingController();
   final _signatureController = TextEditingController();
@@ -28,20 +38,27 @@ class _FishDetailsScreenState extends State<InspectionScreen2> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // Screen background
       backgroundColor: Colors.white,
+
       appBar: AppBar(
         title: const Text('Inspection Form'),
         backgroundColor: Colors.blue,
         elevation: 0,
       ),
+
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
+
           child: Form(
             key: _formKey,
+
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+
+                // Header section
                 const Text(
                   'Department of Fisheries Resources',
                   style: TextStyle(
@@ -56,7 +73,10 @@ class _FishDetailsScreenState extends State<InspectionScreen2> {
                     color: Colors.black54,
                   ),
                 ),
+
                 const SizedBox(height: 24),
+                
+                // Section: Fish details
                 const Text(
                   '| Accompanying Certificate',
                   style: TextStyle(
@@ -65,17 +85,24 @@ class _FishDetailsScreenState extends State<InspectionScreen2> {
                     fontWeight: FontWeight.w500,
                   ),
                 ),
+
                 const SizedBox(height: 16),
+
                 _buildTextField(
                   controller: _speciesController,
                   label: 'Species of Fish',
                 ),
+
                 const SizedBox(height: 16),
+
                 _buildTextField(
                   controller: _weightController,
                   label: 'Weight of Fish',
                 ),
+
                 const SizedBox(height: 16),
+
+                // Quantity + Temperature in same row
                 Row(
                   children: [
                     Expanded(
@@ -93,7 +120,10 @@ class _FishDetailsScreenState extends State<InspectionScreen2> {
                     ),
                   ],
                 ),
+
                 const SizedBox(height: 24),
+
+                // Section: Attestation
                 const Text(
                   '|| Attestation',
                   style: TextStyle(
@@ -102,7 +132,10 @@ class _FishDetailsScreenState extends State<InspectionScreen2> {
                     fontWeight: FontWeight.w500,
                   ),
                 ),
+
                 const SizedBox(height: 16),
+
+                // Certification statement text
                 const Text(
                   'I the undersigned inspector hereby certify that the fish has been inspected and found organoleptically wholesome and acceptable for human consumption.',
                   style: TextStyle(
@@ -111,28 +144,41 @@ class _FishDetailsScreenState extends State<InspectionScreen2> {
                   ),
                 ),
                 const SizedBox(height: 16),
+
+                // Inspector name
                 _buildTextField(
                   controller: _inspectorController,
                   label: 'Name of Inspector',
                   suffixIcon: Icons.person,
                 ),
+
                 const SizedBox(height: 16),
+
+                // Inspector designation
                 _buildTextField(
                   controller: _designationController,
                   label: 'Designation',
                 ),
+
                 const SizedBox(height: 16),
+
+                // Digital signature input
                 _buildTextField(
                   controller: _signatureController,
                   label: 'Digital Signature',
                   suffixIcon: Icons.edit_document,
                 ),
+
                 const SizedBox(height: 24),
+
+                // Submit button
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: () {
+                      // Validate form before submission
                       if (_formKey.currentState!.validate()) {
+                        // Merge previous + current form data
                         final combinedFormData = {
                           ...widget.previousFormData,
                           'species': _speciesController.text,
@@ -143,6 +189,7 @@ class _FishDetailsScreenState extends State<InspectionScreen2> {
                           'designation': _designationController.text,
                         };
 
+                        // Navigate to certificate screen
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -153,6 +200,7 @@ class _FishDetailsScreenState extends State<InspectionScreen2> {
                         );
                       }
                     },
+
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blue,
                       padding: const EdgeInsets.symmetric(vertical: 16),
@@ -160,6 +208,7 @@ class _FishDetailsScreenState extends State<InspectionScreen2> {
                         borderRadius: BorderRadius.circular(8),
                       ),
                     ),
+
                     child: const Text(
                       'Submit Inspection',
                       style: TextStyle(
@@ -170,7 +219,9 @@ class _FishDetailsScreenState extends State<InspectionScreen2> {
                     ),
                   ),
                 ),
+
                 const SizedBox(height: 16),
+                // Footer branding
                 const Center(
                   child: Text(
                     'AquaTrack logistics',
@@ -188,6 +239,7 @@ class _FishDetailsScreenState extends State<InspectionScreen2> {
     );
   }
 
+  /// Reusable text field builder for form inputs
   Widget _buildTextField({
     required TextEditingController controller,
     required String label,
@@ -195,12 +247,14 @@ class _FishDetailsScreenState extends State<InspectionScreen2> {
   }) {
     return TextFormField(
       controller: controller,
+
       decoration: InputDecoration(
         labelText: label,
         labelStyle: const TextStyle(color: Colors.grey),
-        suffixIcon: suffixIcon != null
-            ? Icon(suffixIcon, color: Colors.grey)
-            : null,
+
+        suffixIcon:
+            suffixIcon != null ? Icon(suffixIcon, color: Colors.grey) : null,
+
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: const BorderSide(color: Colors.grey),
@@ -221,10 +275,13 @@ class _FishDetailsScreenState extends State<InspectionScreen2> {
           borderRadius: BorderRadius.circular(8),
           borderSide: const BorderSide(color: Colors.red, width: 2),
         ),
+
         filled: true,
         fillColor: Colors.white,
       ),
+
       style: const TextStyle(color: Colors.black87),
+      // Required field validation
       validator: (value) {
         if (value == null || value.isEmpty) {
           return 'This field is required';
@@ -236,6 +293,7 @@ class _FishDetailsScreenState extends State<InspectionScreen2> {
 
   @override
   void dispose() {
+    // Clean up controllers to prevent memory leaks
     _speciesController.dispose();
     _weightController.dispose();
     _quantityController.dispose();
@@ -243,6 +301,7 @@ class _FishDetailsScreenState extends State<InspectionScreen2> {
     _inspectorController.dispose();
     _designationController.dispose();
     _signatureController.dispose();
+
     super.dispose();
   }
 }
