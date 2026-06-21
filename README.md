@@ -1,5 +1,5 @@
 # Cold-Chain-Business-App-Prototype
-# AquaTrack Logistics – IoT-Powered Fish Transportation Monitoring
+## AquaTrack Logistics – IoT-Powered Fish Transportation Monitoring
 
 AquaTrack Logistics is a hackathon project that was developed in 2024 to address challenges in fish transportation supply chain in Uganda through digitalization and IoT technology. As part of a multidisciplinary team, I contributed as the Application Developer, building a mobile application using Android Studio and Flutter. The application streamlined inspection workflows, centralized transportation data, and provided real-time visibility into cold-chain operations through IoT integration.
 
