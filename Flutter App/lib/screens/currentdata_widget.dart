@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:aqua_track/tracked_data.dart';
-
 /// Displays the latest temperature and humidity readings
 /// received from the tracked device.
 class CurrentReadings extends StatelessWidget {
@@ -60,7 +59,6 @@ class CurrentReadings extends StatelessWidget {
           ),
 
           const SizedBox(height: 24),
-
           // Temperature reading row.
           _buildReadingRow(
             'Temperature',
@@ -70,7 +68,6 @@ class CurrentReadings extends StatelessWidget {
           ),
 
           const SizedBox(height: 16),
-
           // Humidity reading row.
           _buildReadingRow(
             'Humidity',
@@ -78,16 +75,13 @@ class CurrentReadings extends StatelessWidget {
             Icons.water_drop,
             Colors.blue,
           ),
-
           const SizedBox(height: 24),
-
           // Display timestamp of the latest reading.
           _buildLastUpdated(latestData!.dateTime),
         ],
       ),
     );
   }
-
   /// Creates a row displaying a sensor reading with:
   /// - an icon
   /// - a label
@@ -113,9 +107,7 @@ class CurrentReadings extends StatelessWidget {
             size: 24,
           ),
         ),
-
         const SizedBox(width: 16),
-
         // Reading label and value.
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -127,7 +119,6 @@ class CurrentReadings extends StatelessWidget {
                 color: Colors.grey,
               ),
             ),
-
             Text(
               value,
               style: const TextStyle(
@@ -164,9 +155,7 @@ class CurrentReadings extends StatelessWidget {
             size: 16,
             color: Colors.grey,
           ),
-
           const SizedBox(width: 8),
-
           // Formatted timestamp.
           Text(
             'Last Updated: ${DateFormat('yyyy-MM-dd HH:mm').format(dateTime)}',
